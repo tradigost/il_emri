@@ -1,0 +1,6 @@
+{
+  "name": "Öğretmen İl Emri Twitter Botu",
+  "description": "Öğretmenler için il emri talebi yapan 50 farklı tweeti veritabanından otomatik seçip X/Twitter'da paylaşan bot yazılımı.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
