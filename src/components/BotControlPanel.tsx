@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BotSettings, BotStats, BotStatus, SelectionMode, TweetCategory, TweetItem } from '../types';
-import { CATEGORY_LABELS } from '../utils/twitter';
+import { CATEGORY_LABELS, formatTweetWithCycleEmoji, getCycleEmoji } from '../utils/twitter';
 
 interface BotControlPanelProps {
   botStatus: BotStatus;
@@ -33,10 +33,15 @@ export const BotControlPanel: React.FC<BotControlPanelProps> = ({
 }) => {
   const [copiedSuccess, setCopiedSuccess] = useState(false);
 
+  const activeEmoji = getCycleEmoji(stats.totalPosted);
+  const displayedTweetText = currentTweet
+    ? formatTweetWithCycleEmoji(currentTweet.text, stats.totalPosted, settings.appendCycleEmoji)
+    : '';
+
   const handleCopyText = async () => {
-    if (!currentTweet) return;
+    if (!displayedTweetText) return;
     try {
-      await navigator.clipboard.writeText(currentTweet.text);
+      await navigator.clipboard.writeText(displayedTweetText);
       setCopiedSuccess(true);
       setTimeout(() => setCopiedSuccess(false), 2000);
     } catch {
@@ -48,8 +53,10 @@ export const BotControlPanel: React.FC<BotControlPanelProps> = ({
     ? Math.max(0, Math.min(100, ((settings.intervalSeconds - secondsRemaining) / settings.intervalSeconds) * 100))
     : 0;
 
-  const charCount = currentTweet ? currentTweet.text.length : 0;
+  const charCount = displayedTweetText.length;
   const isOverLimit = charCount > 280;
+
+  const cycleNumber = Math.floor(stats.totalPosted / 50);
 
   return (
     <div className="space-y-6">
@@ -57,13 +64,14 @@ export const BotControlPanel: React.FC<BotControlPanelProps> = ({
       <div className="bg-slate-900/80 border border-slate-800 rounded-xl p-4 sm:p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 text-xs text-sky-400 font-medium mb-1">
-            <span>Öğretmen Mazeret ve Aile Birliği İl Emri Kampanyası</span>
+            <span>Ogretmen Mazeret ve Aile Birligi Il Emri Kampanyasi</span>
             <span aria-hidden="true">·</span>
-            <span>50 Farklı Özgün Tweet Veritabanı</span>
+            <span>100 Farkli Ozgun Tweet Veritabani</span>
           </div>
           <p className="text-sm text-slate-300 max-w-2xl leading-relaxed">
-            MEB ve Bakan Yusuf Tekin&apos;e yönelik il emri taleplerini içeren 50 farklı tweeti
-            belirlediğiniz aralıklarla otomatik olarak sıradan ya da akıllı rastgele seçip X (Twitter)&apos;da açar.
+            MEB ve Bakan Yusuf Tekin&apos;e yonelik il emri taleplerini iceren 100 farkli tweeti
+            belirlediginiz araliklarla otomatik secip X (Twitter)&apos;da acar.
+            Her 50 paylasimdan sonra tweetlerin sonuna farkli donusumlu bir emoji eklenir.
           </p>
         </div>
 
@@ -71,7 +79,7 @@ export const BotControlPanel: React.FC<BotControlPanelProps> = ({
           onClick={onOpenPopupGuide}
           className="text-xs text-slate-400 hover:text-sky-300 underline underline-offset-4 flex items-center gap-1.5 whitespace-nowrap cursor-pointer transition-colors"
         >
-          <span>Tarayıcı Açılır Pencere İzin Rehberi</span>
+          <span>Tarayici Acilir Pencere Izin Rehberi</span>
         </button>
       </div>
 
@@ -89,10 +97,10 @@ export const BotControlPanel: React.FC<BotControlPanelProps> = ({
                 <span className="text-slate-500 text-xs">·</span>
                 <span className="text-xs font-mono text-slate-400">
                   {settings.mode === 'smart_random'
-                    ? 'Akıllı Rastgele Seçim'
+                    ? 'Akilli Rastgele Secim'
                     : settings.mode === 'sequential'
-                    ? 'Sıralı Döngü (1-50)'
-                    : 'Kategori Bazlı Seçim'}
+                    ? 'Sirali Dongu (1-100)'
+                    : 'Kategori Bazli Secim'}
                 </span>
               </div>
 
@@ -116,7 +124,7 @@ export const BotControlPanel: React.FC<BotControlPanelProps> = ({
                   />
                 </div>
                 <div className="flex justify-between text-[11px] font-mono text-slate-400 tabular-nums">
-                  <span>Aralık: {settings.intervalSeconds} sn</span>
+                  <span>Aralik: {settings.intervalSeconds} sn</span>
                   <span>Kalan: {secondsRemaining} sn</span>
                 </div>
               </div>
@@ -139,7 +147,7 @@ export const BotControlPanel: React.FC<BotControlPanelProps> = ({
                 >
                   <span className="w-0 h-0 border-y-4 border-y-transparent border-l-8 border-l-slate-950 inline-block" />
                   <span>
-                    {botStatus === 'paused' ? 'Botu Devam Ettir' : 'Otomatik Botu Başlat'}
+                    {botStatus === 'paused' ? 'Botu Devam Ettir' : 'Otomatik Botu Baslat'}
                   </span>
                 </button>
               )}
@@ -147,10 +155,10 @@ export const BotControlPanel: React.FC<BotControlPanelProps> = ({
               <button
                 onClick={onNextTweet}
                 className="w-full py-3 px-4 bg-slate-800 hover:bg-slate-700 text-slate-100 font-medium text-sm rounded-lg border border-slate-700/80 transition-colors flex items-center justify-center gap-2 cursor-pointer active:scale-98"
-                title="Sıradaki tweeti beklemeden X'te aç"
+                title="Siradaki tweeti beklemeden X'te ac"
               >
                 <span className="font-bold text-sky-400">𝕏</span>
-                <span>Sıradakini Paylaş & Aç</span>
+                <span>Siradakini Paylas & Ac</span>
                 <span className="text-[10px] font-mono text-slate-400 border border-slate-600 px-1 py-0.5 rounded">
                   Space
                 </span>
@@ -163,7 +171,7 @@ export const BotControlPanel: React.FC<BotControlPanelProps> = ({
                   onClick={onStopBot}
                   className="text-xs text-rose-400/80 hover:text-rose-300 transition-colors cursor-pointer"
                 >
-                  Botu Tamamen Sıfırla ve Durdur
+                  Botu Tamamen Sifirla ve Durdur
                 </button>
               </div>
             )}
@@ -172,16 +180,16 @@ export const BotControlPanel: React.FC<BotControlPanelProps> = ({
           {/* Quick Config: Intervals & Mode */}
           <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4">
             <h3 className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
-              Paylaşım Aralığı (Süre)
+              Paylasim Araligi (Sure)
             </h3>
 
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
               {[
-                { sec: 15, label: '15 sn (Hızlı)' },
-                { sec: 30, label: '30 sn (Önerilen)' },
+                { sec: 15, label: '15 sn (Hizli)' },
+                { sec: 30, label: '30 sn (Onerilen)' },
                 { sec: 60, label: '1 dk (Dengeli)' },
-                { sec: 120, label: '2 dk (Güvenli)' },
-                { sec: 300, label: '5 dk (Spam Korumalı)' },
+                { sec: 120, label: '2 dk (Guvenli)' },
+                { sec: 300, label: '5 dk (Spam Korumali)' },
               ].map(({ sec, label }) => (
                 <button
                   key={sec}
@@ -201,7 +209,7 @@ export const BotControlPanel: React.FC<BotControlPanelProps> = ({
             <div className="pt-2 border-t border-slate-800/80 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-medium text-slate-400 mb-1.5">
-                  Tweet Seçim Yöntemi
+                  Tweet Secim Yontemi
                 </label>
                 <select
                   value={settings.mode}
@@ -210,9 +218,9 @@ export const BotControlPanel: React.FC<BotControlPanelProps> = ({
                   }
                   className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-400"
                 >
-                  <option value="smart_random">Akıllı Rastgele (Eşit Dağıtımlı)</option>
-                  <option value="sequential">Sıralı Döngü (1'den 50'ye)</option>
-                  <option value="category">Kategoriye Göre Süz</option>
+                  <option value="smart_random">Akilli Rastgele (Esit Dagitimli)</option>
+                  <option value="sequential">Sirali Dongu (1'den 100'e)</option>
+                  <option value="category">Kategoriye Gore Suz</option>
                 </select>
               </div>
 
@@ -227,11 +235,11 @@ export const BotControlPanel: React.FC<BotControlPanelProps> = ({
                   }
                   className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-400"
                 >
-                  <option value="all">Tüm Kategoriler (Tüm 50 Tweet)</option>
+                  <option value="all">Tum Kategoriler (100 Tweet)</option>
                   <option value="Aile Bütünlüğü">Aile Bütünlüğü</option>
                   <option value="Anayasal Hak">Anayasal Hak (Madde 41)</option>
                   <option value="Bakanlığa Çağrı">Bakanlığa Çağrı (Yusuf Tekin)</option>
-                  <option value="Çocuklar İçin">Çocuklar İçin</option>
+                  <option value="Çocuklar Için">Çocuklar Için</option>
                   <option value="Sosyo-Ekonomik">Sosyo-Ekonomik Külfet</option>
                   <option value="Adil Atama">Adil Atama & Boş Normlar</option>
                 </select>
@@ -249,7 +257,7 @@ export const BotControlPanel: React.FC<BotControlPanelProps> = ({
                   }
                   className="w-4 h-4 rounded bg-slate-800 border-slate-700 text-sky-400 focus:ring-0 focus:ring-offset-0"
                 />
-                <span>Otomatik X Sekmesi Aç</span>
+                <span>Otomatik X Sekmesi Ac</span>
               </label>
 
               <label className="flex items-center gap-2 cursor-pointer select-none">
@@ -267,13 +275,28 @@ export const BotControlPanel: React.FC<BotControlPanelProps> = ({
               <label className="flex items-center gap-2 cursor-pointer select-none">
                 <input
                   type="checkbox"
+                  checked={settings.appendCycleEmoji}
+                  onChange={(e) =>
+                    onUpdateSettings({ appendCycleEmoji: e.target.checked })
+                  }
+                  className="w-4 h-4 rounded bg-slate-800 border-slate-700 text-sky-400 focus:ring-0 focus:ring-offset-0"
+                />
+                <span className="flex items-center gap-1 font-medium text-sky-300">
+                  <span>Her 50 Paylasimda Bir Farkli Emoji Ekle</span>
+                  {activeEmoji && <span className="text-base">{activeEmoji}</span>}
+                </span>
+              </label>
+
+              <label className="flex items-center gap-2 cursor-pointer select-none">
+                <input
+                  type="checkbox"
                   checked={settings.soundNotification}
                   onChange={(e) =>
                     onUpdateSettings({ soundNotification: e.target.checked })
                   }
                   className="w-4 h-4 rounded bg-slate-800 border-slate-700 text-sky-400 focus:ring-0 focus:ring-offset-0"
                 />
-                <span>Sesli Uyarı (Bip)</span>
+                <span>Sesli Uyari (Bip)</span>
               </label>
 
               <label className="flex items-center gap-2 cursor-pointer select-none">
@@ -285,7 +308,7 @@ export const BotControlPanel: React.FC<BotControlPanelProps> = ({
                   }
                   className="w-4 h-4 rounded bg-slate-800 border-slate-700 text-sky-400 focus:ring-0 focus:ring-offset-0"
                 />
-                <span>Döngü Bitince Başa Dön</span>
+                <span>Dongu Bitince Basa Don</span>
               </label>
             </div>
           </div>
@@ -297,7 +320,7 @@ export const BotControlPanel: React.FC<BotControlPanelProps> = ({
             <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
               <div className="flex items-center gap-2">
                 <span className="text-xs font-semibold text-slate-200">
-                  Sıradaki / Aktif Tweet
+                  Siradaki / Aktif Tweet
                 </span>
                 {currentTweet && (
                   <span className="text-xs font-mono text-sky-400 tabular-nums">
@@ -315,6 +338,31 @@ export const BotControlPanel: React.FC<BotControlPanelProps> = ({
               )}
             </div>
 
+            {/* Cycle Emoji Status Card */}
+            {settings.appendCycleEmoji && (
+              <div className="p-2.5 rounded-lg bg-sky-950/40 border border-sky-900/60 text-xs text-sky-300 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="text-base">
+                    {activeEmoji || '⏳'}
+                  </span>
+                  <span>
+                    {stats.totalPosted >= 50 ? (
+                      <>
+                        <strong>{cycleNumber}. Tur Emojisi Aktif:</strong> {activeEmoji}
+                      </>
+                    ) : (
+                      <>
+                        <strong>50 Paylasim Emojisi:</strong> {50 - stats.totalPosted} tweet sonra baslayacak
+                      </>
+                    )}
+                  </span>
+                </div>
+                <span className="font-mono text-[11px] text-sky-400 tabular-nums">
+                  {stats.totalPosted}/50
+                </span>
+              </div>
+            )}
+
             {currentTweet ? (
               <div className="space-y-4">
                 {/* Twitter Styled Card */}
@@ -322,30 +370,30 @@ export const BotControlPanel: React.FC<BotControlPanelProps> = ({
                   {/* Account simulation header */}
                   <div className="flex items-center gap-2.5">
                     <div className="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center font-bold text-sky-400 text-sm">
-                      ÖE
+                      OE
                     </div>
                     <div className="flex flex-col">
                       <div className="flex items-center gap-1.5">
                         <span className="text-sm font-semibold text-slate-100">
-                          Öğretmen İl Emri Platformu
+                          Ogretmen Il Emri Platformu
                         </span>
                         <span className="text-sky-400 text-xs">✓</span>
                       </div>
                       <div className="text-xs text-slate-500 font-mono">
-                        @il_emri_talep · Şimdi
+                        @il_emri_talep · Simdi
                       </div>
                     </div>
                   </div>
 
-                  {/* Tweet Body */}
+                  {/* Tweet Body (with cycle emoji if 50+ reached) */}
                   <p className="text-sm text-slate-100 leading-relaxed font-normal whitespace-pre-wrap">
-                    {currentTweet.text}
+                    {displayedTweetText}
                   </p>
 
                   {/* Character count & tags info */}
                   <div className="flex items-center justify-between pt-2 border-t border-slate-800/60 text-xs text-slate-400">
                     <div className="flex items-center gap-1.5">
-                      <span className="text-slate-500">Paylaşım sayısı:</span>
+                      <span className="text-slate-500">Paylasim sayisi:</span>
                       <span className="font-mono tabular-nums text-slate-300">
                         {currentTweet.timesPosted} kez
                       </span>
@@ -375,7 +423,7 @@ export const BotControlPanel: React.FC<BotControlPanelProps> = ({
                     className="flex-1 py-2.5 px-4 bg-sky-400 hover:bg-sky-300 text-slate-950 font-semibold text-xs rounded-lg transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
                   >
                     <span className="font-bold">𝕏</span>
-                    <span>X Üzerinde Paylaş</span>
+                    <span>X Uzerinde Paylas</span>
                   </button>
 
                   <button
@@ -383,13 +431,13 @@ export const BotControlPanel: React.FC<BotControlPanelProps> = ({
                     className="py-2.5 px-3.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs rounded-lg border border-slate-700 transition-colors flex items-center gap-1 cursor-pointer"
                     title="Metni panoya kopyala"
                   >
-                    <span>{copiedSuccess ? '✓ Kopyalandı' : 'Kopyala'}</span>
+                    <span>{copiedSuccess ? '✓ Kopyalandi' : 'Kopyala'}</span>
                   </button>
                 </div>
               </div>
             ) : (
               <div className="py-8 text-center text-xs text-slate-500">
-                Seçili kriterlere uygun tweet bulunamadı.
+                Secili kriterlere uygun tweet bulunamadi.
               </div>
             )}
           </div>
@@ -397,26 +445,26 @@ export const BotControlPanel: React.FC<BotControlPanelProps> = ({
           {/* Quick Metrics Bar (Tabular Figures) */}
           <div className="bg-slate-900 border border-slate-800 rounded-xl p-4">
             <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">
-              Kampanya İstatistikleri
+              Kampanya Istatistikleri
             </h4>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
               <div className="bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/60">
                 <span className="block text-lg font-mono font-bold text-slate-100 tabular-nums">
                   {stats.totalTweets}
                 </span>
-                <span className="text-[11px] text-slate-400">Veritabanı</span>
+                <span className="text-[11px] text-slate-400">Veritabani</span>
               </div>
               <div className="bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/60">
                 <span className="block text-lg font-mono font-bold text-sky-400 tabular-nums">
                   {stats.totalPosted}
                 </span>
-                <span className="text-[11px] text-slate-400">Gönderim</span>
+                <span className="text-[11px] text-slate-400">Gonderim</span>
               </div>
               <div className="bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/60">
                 <span className="block text-lg font-mono font-bold text-emerald-400 tabular-nums">
                   {stats.uniquePostedCount}
                 </span>
-                <span className="text-[11px] text-slate-400">Özgün Tweet</span>
+                <span className="text-[11px] text-slate-400">Ozgun Tweet</span>
               </div>
               <div className="bg-slate-950/60 p-2.5 rounded-lg border border-slate-800/60">
                 <span className="block text-lg font-mono font-bold text-purple-400 tabular-nums">
@@ -431,3 +479,4 @@ export const BotControlPanel: React.FC<BotControlPanelProps> = ({
     </div>
   );
 };
+

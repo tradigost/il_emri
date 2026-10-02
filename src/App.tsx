@@ -14,7 +14,7 @@ import {
   loadLogsFromStorage,
   saveLogsToStorage
 } from './utils/storage';
-import { openTwitterIntent, selectNextTweet } from './utils/twitter';
+import { openTwitterIntent, selectNextTweet, formatTweetWithCycleEmoji } from './utils/twitter';
 import { soundEffects } from './utils/audio';
 import { Header } from './components/Header';
 import { BotControlPanel } from './components/BotControlPanel';
@@ -76,7 +76,13 @@ export default function App() {
         soundEffects.playChime();
       }
 
-      const result = await openTwitterIntent(tweetToPost.text, settings);
+      const formattedText = formatTweetWithCycleEmoji(
+        tweetToPost.text,
+        stats.totalPosted,
+        settings.appendCycleEmoji
+      );
+
+      const result = await openTwitterIntent(formattedText, settings);
 
       // Update tweet record
       const updatedTweets = tweets.map((t) => {
@@ -104,7 +110,7 @@ export default function App() {
         id: `${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
         timestamp: timeStr,
         tweetId: tweetToPost.id,
-        tweetText: tweetToPost.text,
+        tweetText: formattedText,
         action: isAutomated ? 'auto_dispatched' : 'opened',
         status: result.opened ? 'success' : 'warning',
         details: result.copied ? 'Panoya kopyalandı & X sekmesi açıldı' : 'X sekmesi açıldı'
@@ -120,7 +126,7 @@ export default function App() {
         showToast(`Tweet #${tweetToPost.id} panoya kopyalandı!`);
       }
     },
-    [tweets, settings, logs, showToast]
+    [tweets, settings, logs, stats.totalPosted, showToast]
   );
 
   // Advance to next tweet and pick it
@@ -370,12 +376,12 @@ export default function App() {
       <footer className="border-t border-slate-900 py-6 px-4 text-center text-xs text-slate-500">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           <div>
-            <span>Öğretmenler İçin İl Emri Otomasyon Botu</span>
+            <span>Ogretmenler Icin Il Emri Otomasyon Botu</span>
             <span className="mx-2">·</span>
             <span>Aile Bütünlüğü Anayasal Haktır</span>
           </div>
           <div className="flex items-center gap-4 text-slate-400">
-            <span>50 Özgün Tweet Veritabanı</span>
+            <span>100 Ozgun Tweet Veritabani</span>
             <span>·</span>
             <span>Doğrudan X Web Intent Entegrasyonu</span>
           </div>

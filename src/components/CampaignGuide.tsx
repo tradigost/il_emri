@@ -5,7 +5,7 @@ export const CampaignGuide: React.FC = () => {
     <div className="space-y-6">
       <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-2">
         <h2 className="text-base font-semibold text-slate-100 flex items-center gap-2">
-          <span>Öğretmen İl Emri X (Twitter) Kampanya Rehberi</span>
+          <span>Ogretmen Il Emri X (Twitter) Kampanya Rehberi</span>
         </h2>
         <p className="text-xs text-slate-400 leading-relaxed max-w-3xl">
           Sosyal medyada ses getirmek, Trending Topics (Gündem) listesine girmek ve
@@ -23,13 +23,13 @@ export const CampaignGuide: React.FC = () => {
             <li className="flex items-start gap-2">
               <span className="text-sky-400 font-bold">·</span>
               <span>
-                <strong>Aynı tweeti art arda atmayın:</strong> X algoritması birebir kopyalanan metinleri &quot;kopya içerik&quot; (duplicate) olarak algılayıp kısıtlayabilir. Bu sebeple botumuz <strong>50 farklı özgün metin</strong> arasında rotasyon yapar.
+                <strong>Aynı tweeti art arda atmayın:</strong> X algoritması birebir kopyalanan metinleri &quot;kopya içerik&quot; (duplicate) olarak algılayıp kısıtlayabilir. Bu sebeple botumuz <strong>100 farklı özgün metin</strong> arasında rotasyon yapar ve her 50 paylaşımda bir tweet sonuna farklı emoji ekler.
               </span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-sky-400 font-bold">·</span>
               <span>
-                <strong>İdeal zaman aralığı:</strong> Tek bir hesaptan peş peşe tweet atarken en az <strong>30 saniye ile 2 dakika</strong> arasında bekleme aralığı önerilir.
+                <strong>Ideal zaman aralığı:</strong> Tek bir hesaptan peş peşe tweet atarken en az <strong>30 saniye ile 2 dakika</strong> arasında bekleme aralığı önerilir.
               </span>
             </li>
             <li className="flex items-start gap-2">
@@ -84,7 +84,7 @@ export const CampaignGuide: React.FC = () => {
             </div>
             <div className="bg-slate-950 p-2.5 rounded border border-slate-800 space-y-1">
               <span className="font-mono text-sky-300">@RTErdogan & @iletisim</span>
-              <p className="text-[11px] text-slate-400">Cumhurbaşkanlığı ve İletişim Başkanlığı</p>
+              <p className="text-[11px] text-slate-400">Cumhurbaşkanlığı ve Iletisim Başkanlığı</p>
             </div>
           </div>
         </div>

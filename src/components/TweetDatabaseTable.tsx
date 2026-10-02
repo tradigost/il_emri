@@ -81,7 +81,7 @@ export const TweetDatabaseTable: React.FC<TweetDatabaseTableProps> = ({
     { key: 'Aile Bütünlüğü', label: 'Aile Bütünlüğü' },
     { key: 'Anayasal Hak', label: 'Anayasal Hak' },
     { key: 'Bakanlığa Çağrı', label: 'Bakanlığa Çağrı' },
-    { key: 'Çocuklar İçin', label: 'Çocuklar İçin' },
+    { key: 'Çocuklar Için', label: 'Çocuklar Için' },
     { key: 'Sosyo-Ekonomik', label: 'Sosyo-Ekonomik' },
     { key: 'Adil Atama', label: 'Adil Atama' },
   ];
@@ -93,7 +93,7 @@ export const TweetDatabaseTable: React.FC<TweetDatabaseTableProps> = ({
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
             <h2 className="text-base font-semibold text-slate-100 flex items-center gap-2">
-              <span>İl Emri Tweet Veritabanı</span>
+              <span>Il Emri Tweet Veritabani</span>
               <span className="text-xs font-mono text-sky-400 tabular-nums">
                 ({filteredTweets.length}/{tweets.length} tweet)
               </span>
@@ -117,7 +117,7 @@ export const TweetDatabaseTable: React.FC<TweetDatabaseTableProps> = ({
               className="py-1.5 px-3 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs rounded-lg border border-slate-700 transition-colors cursor-pointer"
               title="Tüm veritabanını JSON olarak indir"
             >
-              JSON İndir
+              JSON Indir
             </button>
 
             <button
@@ -125,11 +125,11 @@ export const TweetDatabaseTable: React.FC<TweetDatabaseTableProps> = ({
               className="py-1.5 px-3 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs rounded-lg border border-slate-700 transition-colors cursor-pointer"
               title="Metin dosyası (TXT) olarak indir"
             >
-              TXT İndir
+              TXT Indir
             </button>
 
             <label className="py-1.5 px-3 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs rounded-lg border border-slate-700 transition-colors cursor-pointer">
-              <span>İçe Aktar</span>
+              <span>Ice Aktar</span>
               <input
                 type="file"
                 accept=".json"
@@ -141,9 +141,9 @@ export const TweetDatabaseTable: React.FC<TweetDatabaseTableProps> = ({
             <button
               onClick={onResetDefaults}
               className="py-1.5 px-3 bg-slate-800 hover:bg-rose-900/40 text-rose-300 text-xs rounded-lg border border-slate-700 transition-colors cursor-pointer"
-              title="Varsayılan 50 tweeti sıfırlayıp geri yükler"
+              title="Varsayılan 100 tweeti sıfırlayıp geri yükler"
             >
-              Varsayılan 50'yi Yükle
+              Varsayilan 100 Tweeti Yukle
             </button>
           </div>
         </div>

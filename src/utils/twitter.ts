@@ -110,10 +110,46 @@ export function selectNextTweet(
   return selected ? { tweet: selected, isNewCycle } : null;
 }
 
+export const CYCLE_EMOJIS = [
+  '📢',
+  '🕊️',
+  '📌',
+  '🇹🇷',
+  '👨‍👩‍👧',
+  '⏳',
+  '⚖️',
+  '🤲',
+  '🏫',
+  '🔔',
+  '✨',
+  '🎯',
+  '📍',
+  '🤍',
+  '📚',
+];
+
+export function getCycleEmoji(totalPosted: number): string | null {
+  if (totalPosted < 50) return null;
+  // Her 50 tweet sonrasinda farkli bir emoji donusumu (50-99 -> emoji 0, 100-149 -> emoji 1...)
+  const cycleIndex = (Math.floor(totalPosted / 50) - 1) % CYCLE_EMOJIS.length;
+  return CYCLE_EMOJIS[cycleIndex];
+}
+
+export function formatTweetWithCycleEmoji(
+  text: string,
+  totalPosted: number,
+  enabled: boolean
+): string {
+  if (!enabled) return text;
+  const emoji = getCycleEmoji(totalPosted);
+  if (!emoji) return text;
+  return `${text} ${emoji}`;
+}
+
 export const CATEGORY_LABELS: Record<TweetCategory, { title: string; desc: string }> = {
   'Aile Bütünlüğü': {
     title: 'Aile Bütünlüğü',
-    desc: 'Eş durumu, parcalanan yuvalar ve birlikte yaşama hakkı'
+    desc: 'Eş durumu, parçalanan yuvalar ve birlikte yaşama hakkı'
   },
   'Anayasal Hak': {
     title: 'Anayasal Hak',
@@ -123,13 +159,13 @@ export const CATEGORY_LABELS: Record<TweetCategory, { title: string; desc: strin
     title: 'Bakanlığa Çağrı',
     desc: 'Milli Eğitim Bakanı Yusuf Tekin ve MEB bürokrasisine doğrudan talep'
   },
-  'Çocuklar İçin': {
-    title: 'Çocuklar İçin',
+  'Çocuklar Için': {
+    title: 'Çocuklar Için',
     desc: 'Anne ve babasından ayrı kalan çocukların duygusal ve sosyal hakları'
   },
   'Sosyo-Ekonomik': {
     title: 'Sosyo-Ekonomik',
-    desc: 'İki ayrı şehir, çift kira, ulaşım külfeti ve hayat pahalılığı'
+    desc: 'Iki ayrı şehir, çift kira, ulaşım külfeti ve hayat pahalılığı'
   },
   'Adil Atama': {
     title: 'Adil Atama',

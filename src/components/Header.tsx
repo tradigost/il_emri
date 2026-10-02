@@ -28,7 +28,7 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
           <div className="flex flex-col">
             <span className="text-base sm:text-lg font-semibold tracking-tight text-slate-100 flex items-center gap-2">
-              İl Emri Botu
+              Il Emri Botu
               <span className="text-[11px] font-normal text-slate-400 hidden sm:inline">
                 · Öğretmen Dayanışma Sistemi
               </span>
@@ -56,7 +56,7 @@ export const Header: React.FC<HeaderProps> = ({
                 : 'text-slate-400 hover:text-slate-200'
             }`}
           >
-            <span>50 Tweet Havuzu</span>
+            <span>Tweet Havuzu</span>
             <span className="text-xs font-mono text-slate-500 tabular-nums">
               ({totalTweets})
             </span>
@@ -82,7 +82,7 @@ export const Header: React.FC<HeaderProps> = ({
                 : 'text-slate-400 hover:text-slate-200'
             }`}
           >
-            Rehber & İpuçları
+            Rehber & Ipuclari
           </button>
         </nav>
 

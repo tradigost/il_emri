@@ -1,11 +1,11 @@
-import { INITIAL_50_TWEETS } from '../data/tweets';
+import { INITIAL_100_TWEETS } from '../data/tweets';
 import { ActivityLog, BotSettings, BotStats, TweetItem } from '../types';
 
 const STORAGE_KEYS = {
-  TWEETS: 'ogretmen_il_emri_tweets_v1',
-  SETTINGS: 'ogretmen_il_emri_settings_v1',
-  STATS: 'ogretmen_il_emri_stats_v1',
-  LOGS: 'ogretmen_il_emri_logs_v1',
+  TWEETS: 'ogretmen_il_emri_tweets_v2',
+  SETTINGS: 'ogretmen_il_emri_settings_v2',
+  STATS: 'ogretmen_il_emri_stats_v2',
+  LOGS: 'ogretmen_il_emri_logs_v2',
 };
 
 export const DEFAULT_SETTINGS: BotSettings = {
@@ -18,10 +18,11 @@ export const DEFAULT_SETTINGS: BotSettings = {
   openInSameTab: false,
   twitterUrlType: 'x.com',
   loopContinuously: true,
+  appendCycleEmoji: true,
 };
 
 export const DEFAULT_STATS: BotStats = {
-  totalTweets: 50,
+  totalTweets: 100,
   totalPosted: 0,
   uniquePostedCount: 0,
   cycleCount: 0,
@@ -31,16 +32,18 @@ export function loadTweetsFromStorage(): TweetItem[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEYS.TWEETS);
     if (!raw) {
-      saveTweetsToStorage(INITIAL_50_TWEETS);
-      return INITIAL_50_TWEETS;
+      saveTweetsToStorage(INITIAL_100_TWEETS);
+      return INITIAL_100_TWEETS;
     }
     const parsed = JSON.parse(raw);
-    if (Array.isArray(parsed) && parsed.length > 0) {
+    if (Array.isArray(parsed) && parsed.length >= 100) {
       return parsed;
     }
-    return INITIAL_50_TWEETS;
+    // If older 50 tweets were stored, upgrade to full 100 tweets
+    saveTweetsToStorage(INITIAL_100_TWEETS);
+    return INITIAL_100_TWEETS;
   } catch {
-    return INITIAL_50_TWEETS;
+    return INITIAL_100_TWEETS;
   }
 }
 
@@ -53,8 +56,8 @@ export function saveTweetsToStorage(tweets: TweetItem[]): void {
 }
 
 export function resetTweetsToDefault(): TweetItem[] {
-  saveTweetsToStorage(INITIAL_50_TWEETS);
-  return INITIAL_50_TWEETS;
+  saveTweetsToStorage(INITIAL_100_TWEETS);
+  return INITIAL_100_TWEETS;
 }
 
 export function loadSettingsFromStorage(): BotSettings {

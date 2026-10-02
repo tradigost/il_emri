@@ -9,10 +9,10 @@ interface TweetComposerModalProps {
 }
 
 const COMMON_TAGS = [
-  '#ÖğretmeneİlEmri',
-  '#İlEmriHaktır',
-  '#AilelerBirleşsin',
-  '#MebİlEmriVer',
+  '#OgretmeneIlEmri',
+  '#IlEmriHaktir',
+  '#AilelerBirlessin',
+  '#MebIlEmriVer',
   '@tcmeb',
   '@Yusuf__Tekin',
   '@RTErdogan',
@@ -54,7 +54,7 @@ export const TweetComposerModal: React.FC<TweetComposerModalProps> = ({
     if (!text.trim() || isOverLimit) return;
 
     // extract hashtags
-    const foundTags = text.match(/#[\wığüşöçİĞÜŞÖÇ]+/gi) || [];
+    const foundTags = text.match(/#[\wığüşöçIĞÜŞÖÇ]+/gi) || [];
 
     onSave({
       text: text.trim(),
@@ -69,7 +69,7 @@ export const TweetComposerModal: React.FC<TweetComposerModalProps> = ({
       <div className="bg-slate-900 border border-slate-800 rounded-xl max-w-lg w-full p-5 sm:p-6 space-y-4 shadow-xl">
         <div className="flex items-center justify-between border-b border-slate-800 pb-3">
           <h3 className="text-sm font-semibold text-slate-100">
-            {initialData ? `Tweet #${initialData.id} Düzenle` : 'Yeni İl Emri Tweeti Ekle'}
+            {initialData ? `Tweet #${initialData.id} Düzenle` : 'Yeni Il Emri Tweeti Ekle'}
           </h3>
           <button
             onClick={onClose}
@@ -92,7 +92,7 @@ export const TweetComposerModal: React.FC<TweetComposerModalProps> = ({
               <option value="Aile Bütünlüğü">Aile Bütünlüğü</option>
               <option value="Anayasal Hak">Anayasal Hak</option>
               <option value="Bakanlığa Çağrı">Bakanlığa Çağrı</option>
-              <option value="Çocuklar İçin">Çocuklar İçin</option>
+              <option value="Çocuklar Için">Çocuklar Için</option>
               <option value="Sosyo-Ekonomik">Sosyo-Ekonomik</option>
               <option value="Adil Atama">Adil Atama</option>
             </select>
@@ -119,7 +119,7 @@ export const TweetComposerModal: React.FC<TweetComposerModalProps> = ({
               rows={4}
               value={text}
               onChange={(e) => setText(e.target.value)}
-              placeholder="Öğretmenler için il emri talebinizi yazın... (@tcmeb @Yusuf__Tekin #ÖğretmeneİlEmri)"
+              placeholder="Ogretmenler icin il emri talebinizi yazin... (@tcmeb @Yusuf__Tekin #OgretmeneIlEmri)"
               className="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-400 resize-none"
               required
             />
@@ -128,7 +128,7 @@ export const TweetComposerModal: React.FC<TweetComposerModalProps> = ({
           {/* Quick Tags Suggestions */}
           <div>
             <span className="block text-[11px] text-slate-500 mb-1.5">
-              Hızlı Etiket Ekle:
+              Hizli Etiket Ekle:
             </span>
             <div className="flex flex-wrap gap-1.5">
               {COMMON_TAGS.map((tag) => (

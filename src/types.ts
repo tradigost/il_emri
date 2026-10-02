@@ -2,7 +2,7 @@ export type TweetCategory =
   | 'Aile Bütünlüğü' 
   | 'Anayasal Hak' 
   | 'Bakanlığa Çağrı' 
-  | 'Çocuklar İçin' 
+  | 'Çocuklar Için' 
   | 'Sosyo-Ekonomik' 
   | 'Adil Atama';
 
@@ -28,6 +28,7 @@ export interface BotSettings {
   openInSameTab: boolean;
   twitterUrlType: 'x.com' | 'twitter.com';
   loopContinuously: boolean;
+  appendCycleEmoji: boolean;
 }
 
 export type BotStatus = 'idle' | 'running' | 'paused';
