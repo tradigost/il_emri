@@ -22,6 +22,7 @@ import { TweetDatabaseTable } from './components/TweetDatabaseTable';
 import { ActivityLogView } from './components/ActivityLogView';
 import { TweetComposerModal } from './components/TweetComposerModal';
 import { PopupPermissionHelper } from './components/PopupPermissionHelper';
+import { AutoPosterHelperModal } from './components/AutoPosterHelperModal';
 import { CampaignGuide } from './components/CampaignGuide';
 
 export default function App() {
@@ -38,6 +39,7 @@ export default function App() {
   const [isComposerOpen, setIsComposerOpen] = useState(false);
   const [editingTweet, setEditingTweet] = useState<TweetItem | null>(null);
   const [isPopupGuideOpen, setIsPopupGuideOpen] = useState(false);
+  const [isAutoPosterGuideOpen, setIsAutoPosterGuideOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const timerRef = useRef<number | null>(null);
@@ -342,6 +344,7 @@ export default function App() {
             onUpdateSettings={handleUpdateSettings}
             onShareNow={(tweet) => dispatchTweet(tweet, false)}
             onOpenPopupGuide={() => setIsPopupGuideOpen(true)}
+            onOpenAutoPosterGuide={() => setIsAutoPosterGuideOpen(true)}
           />
         )}
 
@@ -399,6 +402,11 @@ export default function App() {
       <PopupPermissionHelper
         isOpen={isPopupGuideOpen}
         onClose={() => setIsPopupGuideOpen(false)}
+      />
+
+      <AutoPosterHelperModal
+        isOpen={isAutoPosterGuideOpen}
+        onClose={() => setIsAutoPosterGuideOpen(false)}
       />
     </div>
   );

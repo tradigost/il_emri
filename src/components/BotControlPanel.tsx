@@ -15,6 +15,7 @@ interface BotControlPanelProps {
   onUpdateSettings: (newSettings: Partial<BotSettings>) => void;
   onShareNow: (tweet: TweetItem) => void;
   onOpenPopupGuide: () => void;
+  onOpenAutoPosterGuide?: () => void;
 }
 
 export const BotControlPanel: React.FC<BotControlPanelProps> = ({
@@ -29,7 +30,8 @@ export const BotControlPanel: React.FC<BotControlPanelProps> = ({
   onNextTweet,
   onUpdateSettings,
   onShareNow,
-  onOpenPopupGuide
+  onOpenPopupGuide,
+  onOpenAutoPosterGuide
 }) => {
   const [copiedSuccess, setCopiedSuccess] = useState(false);
 
@@ -75,12 +77,24 @@ export const BotControlPanel: React.FC<BotControlPanelProps> = ({
           </p>
         </div>
 
-        <button
-          onClick={onOpenPopupGuide}
-          className="text-xs text-slate-400 hover:text-sky-300 underline underline-offset-4 flex items-center gap-1.5 whitespace-nowrap cursor-pointer transition-colors"
-        >
-          <span>Tarayici Acilir Pencere Izin Rehberi</span>
-        </button>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+          {onOpenAutoPosterGuide && (
+            <button
+              onClick={onOpenAutoPosterGuide}
+              className="py-1.5 px-3 bg-sky-500/10 hover:bg-sky-500/20 text-sky-300 border border-sky-500/30 rounded-lg text-xs font-medium flex items-center gap-1.5 whitespace-nowrap cursor-pointer transition-colors"
+            >
+              <span>🤖</span>
+              <span>Tam Otomatik Gönderim (Hands-Free)</span>
+            </button>
+          )}
+
+          <button
+            onClick={onOpenPopupGuide}
+            className="text-xs text-slate-400 hover:text-sky-300 underline underline-offset-4 flex items-center gap-1.5 whitespace-nowrap cursor-pointer transition-colors"
+          >
+            <span>Açılır Pencere İzni</span>
+          </button>
+        </div>
       </div>
 
       {/* Main Grid: Left Cockpit & Right Active Tweet Preview */}
