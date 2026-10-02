@@ -2,10 +2,10 @@ import { INITIAL_100_TWEETS } from '../data/tweets';
 import { ActivityLog, BotSettings, BotStats, TweetItem } from '../types';
 
 const STORAGE_KEYS = {
-  TWEETS: 'ogretmen_il_emri_tweets_v2',
-  SETTINGS: 'ogretmen_il_emri_settings_v2',
-  STATS: 'ogretmen_il_emri_stats_v2',
-  LOGS: 'ogretmen_il_emri_logs_v2',
+  TWEETS: 'ogretmen_il_emri_tweets_v3',
+  SETTINGS: 'ogretmen_il_emri_settings_v3',
+  STATS: 'ogretmen_il_emri_stats_v3',
+  LOGS: 'ogretmen_il_emri_logs_v3',
 };
 
 export const DEFAULT_SETTINGS: BotSettings = {

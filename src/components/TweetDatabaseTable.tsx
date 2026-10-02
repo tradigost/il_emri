@@ -81,7 +81,7 @@ export const TweetDatabaseTable: React.FC<TweetDatabaseTableProps> = ({
     { key: 'Aile Bütünlüğü', label: 'Aile Bütünlüğü' },
     { key: 'Anayasal Hak', label: 'Anayasal Hak' },
     { key: 'Bakanlığa Çağrı', label: 'Bakanlığa Çağrı' },
-    { key: 'Çocuklar Için', label: 'Çocuklar Için' },
+    { key: 'Çocuklar İçin', label: 'Çocuklar İçin' },
     { key: 'Sosyo-Ekonomik', label: 'Sosyo-Ekonomik' },
     { key: 'Adil Atama', label: 'Adil Atama' },
   ];

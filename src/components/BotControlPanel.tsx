@@ -239,7 +239,7 @@ export const BotControlPanel: React.FC<BotControlPanelProps> = ({
                   <option value="Aile Bütünlüğü">Aile Bütünlüğü</option>
                   <option value="Anayasal Hak">Anayasal Hak (Madde 41)</option>
                   <option value="Bakanlığa Çağrı">Bakanlığa Çağrı (Yusuf Tekin)</option>
-                  <option value="Çocuklar Için">Çocuklar Için</option>
+                  <option value="Çocuklar İçin">Çocuklar İçin</option>
                   <option value="Sosyo-Ekonomik">Sosyo-Ekonomik Külfet</option>
                   <option value="Adil Atama">Adil Atama & Boş Normlar</option>
                 </select>

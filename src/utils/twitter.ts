@@ -159,13 +159,13 @@ export const CATEGORY_LABELS: Record<TweetCategory, { title: string; desc: strin
     title: 'Bakanlığa Çağrı',
     desc: 'Milli Eğitim Bakanı Yusuf Tekin ve MEB bürokrasisine doğrudan talep'
   },
-  'Çocuklar Için': {
-    title: 'Çocuklar Için',
+  'Çocuklar İçin': {
+    title: 'Çocuklar İçin',
     desc: 'Anne ve babasından ayrı kalan çocukların duygusal ve sosyal hakları'
   },
   'Sosyo-Ekonomik': {
     title: 'Sosyo-Ekonomik',
-    desc: 'Iki ayrı şehir, çift kira, ulaşım külfeti ve hayat pahalılığı'
+    desc: 'İki ayrı şehir, çift kira, ulaşım külfeti ve hayat pahalılığı'
   },
   'Adil Atama': {
     title: 'Adil Atama',

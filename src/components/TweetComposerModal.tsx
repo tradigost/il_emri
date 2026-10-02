@@ -92,7 +92,7 @@ export const TweetComposerModal: React.FC<TweetComposerModalProps> = ({
               <option value="Aile Bütünlüğü">Aile Bütünlüğü</option>
               <option value="Anayasal Hak">Anayasal Hak</option>
               <option value="Bakanlığa Çağrı">Bakanlığa Çağrı</option>
-              <option value="Çocuklar Için">Çocuklar Için</option>
+              <option value="Çocuklar İçin">Çocuklar İçin</option>
               <option value="Sosyo-Ekonomik">Sosyo-Ekonomik</option>
               <option value="Adil Atama">Adil Atama</option>
             </select>

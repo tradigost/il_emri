@@ -2,7 +2,7 @@ export type TweetCategory =
   | 'Aile Bütünlüğü' 
   | 'Anayasal Hak' 
   | 'Bakanlığa Çağrı' 
-  | 'Çocuklar Için' 
+  | 'Çocuklar İçin' 
   | 'Sosyo-Ekonomik' 
   | 'Adil Atama';
 
